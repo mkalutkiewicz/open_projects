@@ -61,7 +61,7 @@ plot_lp <- function(cutoff) {
   virg_df %>% filter(predictor >= cutoff) %>% mutate(type = factor("TP", levels = c("TN", "FP", "FN", "TP"))) -> TP_area
 
   # make a plot with 4 different `geom_areas`
-  p_dist <- ggplot(mapping = aes(x = predictor, y = density, fill = type)) +
+  p_dist <- ggplot(mapping = aes(x = kPa, y = prevalence, fill = type)) +
     geom_vline(xintercept = cutoff) +
     geom_hline(yintercept = 0, color = "black", size = 0.5, linetype = 2) +
     geom_area(data = TN_area, alpha = 0.7) +
@@ -81,7 +81,7 @@ plot_lp <- function(cutoff) {
       labels = c("true -", "false +", "false -", "true +")
     ) +
     guides(fill = guide_legend(override.aes = list(alpha = 0.7))) + # set the colors in the legend to match the colors of the density plots
-    scale_x_continuous(limits = c(-45, 50)) + # restrict x axis to match animation made by `animate_ROC.r`
+    scale_x_continuous(limits = c(2, 9)) + # restrict x axis to match animation made by `animate_ROC.r`
     theme_cowplot() +
     theme(
       legend.position = "top", # customize the legend
